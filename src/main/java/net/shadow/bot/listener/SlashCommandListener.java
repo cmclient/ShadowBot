@@ -13,7 +13,6 @@ public class SlashCommandListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        String name = event.getName();
-        this.bot.getCommandManager().get(name).ifPresent(command -> command.execute(event));
+        this.bot.getCommandManager().get(event.getName()).ifPresent(command -> command.execute(event));
     }
 }
