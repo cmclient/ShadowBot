@@ -37,16 +37,28 @@ public class SuggestCommand extends Command {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         if (this.channel == null) {
-            event.reply("Error! Suggestion channel do not exists!").setEphemeral(true).queue();
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("Error!")
+                    .setDescription("Suggestion channel does not exist.")
+                    .setColor(0xFF0000); // Red color
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             return;
         }
         if (event.getMember() == null) {
-            event.reply("Error! Member is null! (not a guild?)").setEphemeral(true).queue();
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("Error!")
+                    .setDescription("Member is null. (not in a guild?)")
+                    .setColor(0xFF0000); // Red color
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             return;
         }
         OptionMapping option = event.getOption("text");
-        if (option == null) {
-            event.reply("Error! You do not provided the text of a suggestion!").setEphemeral(true).queue();
+        if (option == null || option.getAsString().isEmpty()) {
+            EmbedBuilder embed = new EmbedBuilder()
+                    .setTitle("Error!")
+                    .setDescription("You did not provide the text of the suggestion.")
+                    .setColor(0xFF0000); // Red color
+            event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             return;
         }
         String text = option.getAsString();
@@ -54,6 +66,10 @@ public class SuggestCommand extends Command {
             message.addReaction(Emoji.fromUnicode("✅")).queue();
             message.addReaction(Emoji.fromUnicode("❌")).queue();
         });
-        event.reply("Done, added suggestion").setEphemeral(true).queue();
+        EmbedBuilder successEmbed = new EmbedBuilder()
+                .setTitle("Suggestion Added")
+                .setDescription("Your suggestion has been successfully added.")
+                .setColor(0x00FF00); // Green color
+        event.replyEmbeds(successEmbed.build()).setEphemeral(true).queue();
     }
 }
