@@ -49,6 +49,6 @@ public class DiscordBot {
         this.logger.info("Waiting for bot to be ready..");
         this.jda.awaitReady();
         this.commandManager.getCommands().values().forEach(Command::onReady);
-        this.logger.info("Bot is ready, invite: " + this.jda.getInviteUrl(Permission.ADMINISTRATOR));
+        this.logger.info("Bot is ready, invite: {}", this.jda.getInviteUrl(Permission.ADMINISTRATOR));
     }
 }

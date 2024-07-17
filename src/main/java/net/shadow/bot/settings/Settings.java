@@ -45,7 +45,7 @@ public class Settings {
                     StandardCopyOption.REPLACE_EXISTING
             );
 
-            this.logger.info("Default config file created: " + configFile);
+            this.logger.info("Default config file created: {}", configFile);
         } catch (IOException ex) {
             this.logger.error("Failed to create default config file!", ex);
         }
